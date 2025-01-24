@@ -12,7 +12,7 @@ def sieve_of_eratosthenes(n):
     primes = []     # List of all found primes. Returned by the function.
 
     # Loop through all values from 2 to n.
-    for i in range(2, n-1):
+    for i in range(2, n+1):
         if i in marked:
             continue
 
