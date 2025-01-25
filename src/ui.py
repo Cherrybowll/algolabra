@@ -30,7 +30,7 @@ class UI:
         command = ""
 
         if len(params) == 0:
-            command = "empty"
+            command = " "
         else:
             command = params[0]
 
@@ -42,8 +42,7 @@ class UI:
                           f"generate [name] [path]\n\n"
                           f"Parameters:\n"
                           f"name: Name of the key pair to be generated\n"
-                          f"path: Path to the directory the key pair will be stored in.
-                          If not specified, defaults to x\n")
+                          f"path: Path to the directory the key pair will be stored in. If not specified, defaults to x.\n")
             case "encrypt":
                 insert = ""
             case "decrypt":
@@ -56,7 +55,7 @@ class UI:
                           f"command: Name of the command, eg. 'generate'\n")
             case "exit":
                 insert = ""
-            case "empty":
+            case " ":
                 insert = f"The 'help' command requires a command name as a parameter.\n"
             case _:
                 insert = f"'{command}' is not a recognized command.\n"
