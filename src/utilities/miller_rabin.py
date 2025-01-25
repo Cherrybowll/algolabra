@@ -1,6 +1,5 @@
 import secrets
 import random
-from sieve_of_eratosthenes import sieve_of_eratosthenes
 
 def miller_rabin(n):
     """Function that performs the Miller-Rabin primality test for given integer n.
