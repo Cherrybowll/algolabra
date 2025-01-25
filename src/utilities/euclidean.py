@@ -11,16 +11,13 @@ def euclidean(a: int, b: int):
     """
 
     # Failsafes
-    if type(a) != int or type(b) != int:
-        raise TypeError("The given arguments must be positive integers")
-
-    if a < 1 or b < 1:
-        raise ValueError("The given arguments must be positive integers")
+    #if type(a) != int or type(b) != int:
+        #raise TypeError("The given arguments must be positive integers")
 
     while b != 0:
         a, b = b, a % b
 
-    return a
+    return abs(a)
 
 if __name__ == "__main__":
     print(euclidean(330, 631602))
