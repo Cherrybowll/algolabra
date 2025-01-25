@@ -4,7 +4,7 @@ def euclidean(a: int, b: int):
 
     Args:
         a (int): Firt of the integers the GCD is calculated for.
-        b (int): Second of the ntegers the GCD is calculated for.
+        b (int): Second of the integers the GCD is calculated for.
 
     Returns:
         int: The greatest common divisor of integers a and b.
@@ -17,10 +17,10 @@ def euclidean(a: int, b: int):
     if a < 1 or b < 1:
         raise ValueError("The given arguments must be positive integers")
 
-    while a != b:
-        if a > b:
-            a -= b
-        else:
-            b -= a
+    while b != 0:
+        a, b = b, a % b
 
     return a
+
+if __name__ == "__main__":
+    print(euclidean(330, 631602))
