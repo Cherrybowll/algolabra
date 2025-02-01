@@ -1,6 +1,7 @@
 import unittest
 from utilities.extended_euclidean import extended_euclidean
 
+
 class TestExtendedEuclidean(unittest.TestCase):
     def setUp(self):
         pass

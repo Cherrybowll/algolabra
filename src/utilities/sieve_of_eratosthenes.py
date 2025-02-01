@@ -8,7 +8,8 @@ def sieve_of_eratosthenes(n):
         list: A list of all prime numbers up to n.
     """
 
-    marked = {}     # Dictionary for looking up integers that are determined non-prime.
+    # Dictionary for looking up integers that are determined non-prime.
+    marked = {}
     primes = []     # List of all found primes. Returned by the function.
 
     # Loop through all values from 2 to n.
@@ -28,6 +29,7 @@ def sieve_of_eratosthenes(n):
             marker = i * multiplier
 
     return primes
+
 
 if __name__ == "__main__":
     primes = sieve_of_eratosthenes(8000000)

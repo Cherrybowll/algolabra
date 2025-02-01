@@ -1,6 +1,7 @@
 import secrets
 import random
 
+
 def miller_rabin(n):
     """Function that performs the Miller-Rabin primality test for given integer n.
 
@@ -15,10 +16,10 @@ def miller_rabin(n):
 
         if n == 2:
             return True
-        
+
         if n == 3:
             return True
-        
+
         if n < 2:
             return False
 

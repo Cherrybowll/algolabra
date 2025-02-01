@@ -59,7 +59,7 @@ class UI:
                 insert = f"The 'help' command requires a command name as a parameter.\n"
             case _:
                 insert = f"'{command}' is not a recognized command.\n"
-        
+
         print("="*50 +
               f"\n{insert}\n" +
               "="*50)
@@ -73,6 +73,7 @@ class UI:
         parsed_command = [param for param in parsed_command if param != ""]
 
         return parsed_command
+
 
 if __name__ == "__main__":
     ui = UI(1)

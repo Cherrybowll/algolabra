@@ -1,6 +1,7 @@
 import unittest
 from utilities.sieve_of_eratosthenes import sieve_of_eratosthenes
 
+
 class TestSieveOfEratosthenes(unittest.TestCase):
     def setUp(self):
         pass
