@@ -14,6 +14,9 @@ difference should be between the two large primes and should it even be tested).
 
 Still, I managed to get the final auxiliary algorithm working and wrote a bunch of tests.
 
+The UI is still a work in progress, as in it sort of exists but doesn't quite connect to application logic. Not that the UI
+really serves any purpose before the whole algorithm is functioning - from key generation to encryption and decryption.
+
 I'm planning to progress better next week.
 
 ## What I learned
