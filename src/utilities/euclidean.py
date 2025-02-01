@@ -11,8 +11,8 @@ def euclidean(a: int, b: int):
     """
 
     # Failsafes
-    #if type(a) != int or type(b) != int:
-        #raise TypeError("The given arguments must be positive integers")
+    if type(a) != int or type(b) != int:
+        raise TypeError("The given arguments must be positive integers")
 
     while b != 0:
         a, b = b, a % b

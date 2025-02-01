@@ -28,3 +28,7 @@ def sieve_of_eratosthenes(n):
             marker = i * multiplier
 
     return primes
+
+if __name__ == "__main__":
+    primes = sieve_of_eratosthenes(8000000)
+    print(len(primes))
