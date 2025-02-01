@@ -39,4 +39,4 @@ class TestEuclidean(unittest.TestCase):
     def test_euclidean_fails_with_nonintegers(self):
         a, b = True, 5
 
-        self.assertRaises(TypeError, euclidean(a, b))
+        self.assertRaises(TypeError, euclidean, a, b)
