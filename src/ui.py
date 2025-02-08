@@ -1,6 +1,7 @@
 class UI:
-    def __init__(self, rsa_handler):
-        self.rsa = rsa_handler
+    def __init__(self, rsa_handler, file_handler):
+        self._rsa = rsa_handler
+        self._files = file_handler
 
     def start(self):
         while True:
@@ -11,20 +12,64 @@ class UI:
                   f"{'help':15}{'[command]':15}\n"
                   f"exit")
             user_input = self._parse_command(input("> "))
+
+            #Failsafe if user enters nothing or only whitespaces
+            if len(user_input) == 0:
+                continue
+
             command, params = user_input[0], user_input[1:]
 
             match command:
                 case "generate":
-                    pass
+                    self._generate(params)
                 case "encrypt":
-                    pass
+                    self._encrypt(params)
                 case "decrypt":
-                    pass
+                    self._decrypt(params)
                 case "help":
                     self._help(params)
                 case "exit":
                     print("Exiting...")
                     break
+
+    def _generate(self, params):
+        if len(params) == 0:
+            pass
+        
+        key_name = params[0]
+
+        self._files.check_key_exist(key_name)
+        key_parts = self._rsa.generate_keys()
+        public_key = (key_parts[0], key_parts[1])
+        private_key = (key_parts[0], key_parts[1], key_parts[2])
+        self._files.create_key(key_name, private_key, True)
+        self._files.create_key(key_name + "_pub", public_key, True)
+
+    def _encrypt(self, params):
+        if len(params) == 0:
+            pass
+
+        message, key_name = params[0], params[1]
+
+        if not self._files.check_key_exist(key_name):
+            pass
+
+        key_parts = self._files.get_key(key_name)
+        cipher = self._rsa.encrypt(int(message), key_parts)
+        print(cipher)
+
+    def _decrypt(self, params):
+        if len(params) == 0:
+            pass
+
+        cipher, key_name = params[0], params[1]
+
+        if not self._files.check_key_exist(key_name):
+            pass
+
+        key_parts = self._files.get_key(key_name)
+        message = self._rsa.decrypt(int(cipher), key_parts)
+        print(message)
 
     def _help(self, params):
         command = ""
