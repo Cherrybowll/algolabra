@@ -1,24 +1,31 @@
 from .sieve_of_eratosthenes import sieve_of_eratosthenes
 from .miller_rabin import miller_rabin
 from .euclidean import euclidean
+from .extended_euclidean import extended_euclidean
 
 import secrets
 
 
 class RSA:
     def __init__(self):
-        self.e = 65537
+        pass
 
     def generate_keys(self):
         p, q = self._find_primes()
         n = p * q
-        n_totient = abs((p-1)*(q-1))/euclidean(p-1, q-1)
+        n_totient = abs((p-1)*(q-1)) // euclidean(p-1, q-1)
+        e = 65537
+        d = extended_euclidean(e, n_totient)["coefficients"][0]
 
-    def encrypt(self):
-        pass
+        return (n, e, d)
 
-    def decrypt(self):
-        pass
+    def encrypt(self, message, key):
+        n, e = key[0], key[1]
+        return pow(message, e, n)
+
+    def decrypt(self, cipher, key):
+        n, e, d = key[0], key[1], key[2]
+        return pow(cipher, d, n)
 
     def _find_primes(self):
         small_primes = sieve_of_eratosthenes(5000)
@@ -55,7 +62,7 @@ class RSA:
 
 
 if __name__ == "__main__":
-    my_rsa = RSA(65537)
+    my_rsa = RSA()
     my_primes = my_rsa._find_primes()
     for prime in my_primes:
         print(prime.bit_length())
