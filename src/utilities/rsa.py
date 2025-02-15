@@ -17,14 +17,14 @@ class RSA:
         e = 65537
         d = extended_euclidean(e, n_totient)["coefficients"][0]
 
-        return (n, e, d)
+        return {"n": n, "e": e, "d": d}
 
     def encrypt(self, message, key):
         n, e = key[0], key[1]
         return pow(message, e, n)
 
     def decrypt(self, cipher, key):
-        n, e, d = key[0], key[1], key[2]
+        n, d = key[0], key[1]
         return pow(cipher, d, n)
 
     def _find_primes(self):

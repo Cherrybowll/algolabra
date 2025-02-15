@@ -1,3 +1,5 @@
+import shlex
+
 class UI:
     def __init__(self, rsa_handler, file_handler):
         self._rsa = rsa_handler
@@ -7,8 +9,8 @@ class UI:
         while True:
             print("RSA tool running, enter command:\n\n"
                   f"{'generate':15}{'[name]':15}{'[path]':15}\n"
-                  f"{'encrypt':15}{'[message]':15}{'[key_path]':15}\n"
-                  f"{'decrypt':15}{'[message]':15}{'[key_path]':15}\n"
+                  f"{'encrypt':15}{'[key]':15}{'[message]':15}\n"
+                  f"{'decrypt':15}{'[key]':15}{'[message]':15}\n"
                   f"{'help':15}{'[command]':15}\n"
                   f"exit")
             user_input = self._parse_command(input("> "))
@@ -35,13 +37,13 @@ class UI:
     def _generate(self, params):
         if len(params) == 0:
             pass
-        
+
         key_name = params[0]
 
         self._files.check_key_exist(key_name)
         key_parts = self._rsa.generate_keys()
-        public_key = (key_parts[0], key_parts[1])
-        private_key = (key_parts[0], key_parts[1], key_parts[2])
+        public_key = (key_parts["n"], key_parts["e"])
+        private_key = (key_parts["n"], key_parts["d"])
         self._files.create_key(key_name, private_key, True)
         self._files.create_key(key_name + "_pub", public_key, True)
 
@@ -49,7 +51,7 @@ class UI:
         if len(params) == 0:
             pass
 
-        message, key_name = params[0], params[1]
+        key_name, message = params[0], params[1]
 
         if not self._files.check_key_exist(key_name):
             pass
@@ -62,7 +64,7 @@ class UI:
         if len(params) == 0:
             pass
 
-        cipher, key_name = params[0], params[1]
+        key_name, cipher = params[0], params[1]
 
         if not self._files.check_key_exist(key_name):
             pass
@@ -82,26 +84,26 @@ class UI:
         insert = ""
         match command:
             case "generate":
-                insert = (f"The 'generate' command generates a public-private RSA key pair.\n\n"
-                          f"Usage:\n"
-                          f"generate [name] [path]\n\n"
-                          f"Parameters:\n"
-                          f"name: Name of the key pair to be generated\n"
-                          f"path: Path to the directory the key pair will be stored in. If not specified, defaults to x.\n")
+                insert = ("The 'generate' command generates a public-private RSA key pair.\n\n"
+                          "Usage:\n"
+                          "generate [name] [path]\n\n"
+                          "Parameters:\n"
+                          "name: Name of the key pair to be generated\n"
+                          "path: Path to the directory the key pair will be stored in. If not specified, defaults to x.\n")
             case "encrypt":
                 insert = ""
             case "decrypt":
                 insert = ""
             case "help":
-                insert = (f"The 'help' command prints information about the given command.\n\n"
-                          f"Usage:\n"
-                          f"help [command]\n\n"
-                          f"Parameters:\n"
-                          f"command: Name of the command, eg. 'generate'\n")
+                insert = ("The 'help' command prints information about the given command.\n\n"
+                          "Usage:\n"
+                          "help [command]\n\n"
+                          "Parameters:\n"
+                          "command: Name of the command, eg. 'generate'\n")
             case "exit":
-                insert = ""
+                insert = "Exits the program."
             case " ":
-                insert = f"The 'help' command requires a command name as a parameter.\n"
+                insert = "The 'help' command requires a command name as a parameter.\n"
             case _:
                 insert = f"'{command}' is not a recognized command.\n"
 
@@ -112,10 +114,31 @@ class UI:
     def _parse_command(self, command: str):
 
         # Separate arguments by whitespaces
-        parsed_command = command.split(" ")
+        """
+        parsed_command = []
+        param_start_i, param_end_i = 0, 0
+        in_quotes, escaping_quotes, last_bad = False , False, False
+        for i in range(len(command)):
+            param_end_i = i
+            if in_quotes:
+                if command[i] == '"' and not escaping_quotes:
+                    parsed_command.append(command[param_start_i:param_end_i])
+                    in_quotes = False
+                    continue
+                elif command[i] == "\\":
+                    escaping_quotes = True
+                else:
+                    param_end_i = i
 
-        # Purge all accidental excess whitespaces
-        parsed_command = [param for param in parsed_command if param != ""]
+            else:
+                if command[i] == " ":
+                    if last_bad:
+                        continue
+                    parsed_command.append(command[param_start_i:param_end_i])
+                    last_bad = True
+        """
+        parsed_command = shlex.split(command)
+        print(parsed_command)
 
         return parsed_command
 
