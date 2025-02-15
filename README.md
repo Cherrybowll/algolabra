@@ -12,6 +12,7 @@ For the course *Algoritmit ja tekoäly* (HY)
 [2](https://github.com/Cherrybowll/algolabra/blob/main/documentation/weekreports/weekreport2.md)
 [3](https://github.com/Cherrybowll/algolabra/blob/main/documentation/weekreports/weekreport3.md)
 [4](https://github.com/Cherrybowll/algolabra/blob/main/documentation/weekreports/weekreport4.md)
+[5](https://github.com/Cherrybowll/algolabra/blob/main/documentation/weekreports/weekreport5.md)
 
 ## User instructions as of week 4
 
