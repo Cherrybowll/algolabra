@@ -14,7 +14,7 @@ For the course *Algoritmit ja tekoäly* (HY)
 [4](https://github.com/Cherrybowll/algolabra/blob/main/documentation/weekreports/weekreport4.md)
 [5](https://github.com/Cherrybowll/algolabra/blob/main/documentation/weekreports/weekreport5.md)
 
-## User instructions as of week 4
+## User instructions as of week 5
 
 ### Installation
 
@@ -33,8 +33,8 @@ This takes precedence currently, ignore what the in-application UI says.
 - Start the program by running `invoke start`
 - Once the program is running:
   - Generate a new key with the command `generate [key_name]`
-  - Encrypt a message with the command `encrypt [message] [key_name]`
-  - Decrypt a message with the command `decrypt [message] [key_name]`
+  - Encrypt a message with the command `encrypt [key_name] [message]`
+  - Decrypt a message with the command `decrypt [key_name] [message]`
 
 **NB!** The encryption key is the public key, which is called "[key_name]_pub". The decryption key is the private key, which is simply called [key_name]. Attempting to decrypt with the public key should guaranteedly crash the program as of now.
 Many other things also probably crash the program as of now.
