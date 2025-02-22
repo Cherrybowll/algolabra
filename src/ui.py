@@ -11,9 +11,9 @@ class UI:
             print("RSA tool running, enter command:\n\n"
                   f"{'generate':15}{'[name]':15}{'[path]':15}\n"
                   f"{'encrypt':15}{'[key]':15}{'[message]':15}\n"
-                  f"{'decrypt':15}{'[key]':15}{'[message]':15}\n"
+                  f"{'decrypt':15}{'[key]':15}{'[cipher]':15}\n"
                   f"{'help':15}{'[command]':15}\n"
-                  f"exit")
+                  "exit")
             user_input = self._parse_command(input("> "))
 
             #Failsafe if user enters nothing or only whitespaces
@@ -94,18 +94,29 @@ class UI:
                           "Usage:\n"
                           "generate [name] [path]\n\n"
                           "Parameters:\n"
-                          "name: Name of the key pair to be generated\n"
+                          "name: Name of the key pair to be generated.\n"
                           "path: Path to the directory the key pair will be stored in. If not specified, defaults to x.\n")
             case "encrypt":
-                insert = ""
+                insert = ("The 'encrypt' command encrypts a message using the given RSA key.\n\n"
+                          "Usage:\n"
+                          "encrypt [key] [message]\n\n"
+                          "Parameters:\n"
+                          "key: Name of the key that will be used for encryption.\n"
+                          "message: The message to be encrypted. Multiword messages must be encased with parentheses.\n")
             case "decrypt":
-                insert = ""
+                insert = ("The 'decrypt' command decrypts an encrypted message using the given RSA key.\n"
+                          "The key used should be the opposing version than the one used for encryption.\n\n"
+                          "Usage:\n"
+                          "decrypt [key] [cipher]\n\n"
+                          "Parameters:\n"
+                          "key: Name of the key that will be used for decryption.\n"
+                          "cipher: The encrypted message, which is an integer.\n")
             case "help":
                 insert = ("The 'help' command prints information about the given command.\n\n"
                           "Usage:\n"
                           "help [command]\n\n"
                           "Parameters:\n"
-                          "command: Name of the command, eg. 'generate'\n")
+                          "command: Name of the command, eg. 'generate'.\n")
             case "exit":
                 insert = "Exits the program."
             case " ":
@@ -118,31 +129,6 @@ class UI:
               "="*50)
 
     def _parse_command(self, command: str):
-
-        # Separate arguments by whitespaces
-        """
-        parsed_command = []
-        param_start_i, param_end_i = 0, 0
-        in_quotes, escaping_quotes, last_bad = False , False, False
-        for i in range(len(command)):
-            param_end_i = i
-            if in_quotes:
-                if command[i] == '"' and not escaping_quotes:
-                    parsed_command.append(command[param_start_i:param_end_i])
-                    in_quotes = False
-                    continue
-                elif command[i] == "\\":
-                    escaping_quotes = True
-                else:
-                    param_end_i = i
-
-            else:
-                if command[i] == " ":
-                    if last_bad:
-                        continue
-                    parsed_command.append(command[param_start_i:param_end_i])
-                    last_bad = True
-        """
         parsed_command = shlex.split(command)
         print(parsed_command)
 
