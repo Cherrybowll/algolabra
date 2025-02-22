@@ -9,7 +9,7 @@ class UI:
     def start(self):
         while True:
             print("RSA tool running, enter command:\n\n"
-                  f"{'generate':15}{'[name]':15}{'[path]':15}\n"
+                  f"{'generate':15}{'[name]':15}\n"
                   f"{'encrypt':15}{'[key]':15}{'[message]':15}\n"
                   f"{'decrypt':15}{'[key]':15}{'[cipher]':15}\n"
                   f"{'help':15}{'[command]':15}\n"
@@ -94,10 +94,10 @@ class UI:
                           "Usage:\n"
                           "generate [name] [path]\n\n"
                           "Parameters:\n"
-                          "name: Name of the key pair to be generated.\n"
-                          "path: Path to the directory the key pair will be stored in. If not specified, defaults to x.\n")
+                          "name: Name of the key pair to be generated. Public key will be '[name]_pub'.\n"
+                          "      A pre-existing key of the same name will be overwritten.\n")
             case "encrypt":
-                insert = ("The 'encrypt' command encrypts a message using the given RSA key.\n\n"
+                insert = ("The 'encrypt' command encrypts/signs a message using the given RSA key.\n\n"
                           "Usage:\n"
                           "encrypt [key] [message]\n\n"
                           "Parameters:\n"
