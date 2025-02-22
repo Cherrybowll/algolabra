@@ -4,7 +4,7 @@
 
 Currently, the branch coverage is low-ish (68%), because integration testing is still missing (so in other words, `rsa.py` still requires testing). Miller-Rabin still needs some edge case testing for some known strong pseudoprimes.
 
-![image](https://github.com/user-attachments/assets/e21319c9-548a-48e5-9e55-2c5220386b23)
+![image](https://github.com/user-attachments/assets/fef1f258-eac8-462d-a798-4acbb3649db7)
 
 ## What is currently tested
 
