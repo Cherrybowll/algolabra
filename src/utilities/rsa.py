@@ -20,12 +20,10 @@ class RSA:
         return {"n": n, "e": e, "d": d}
 
     def encrypt(self, message, key):
-        n, e = key[0], key[1]
-        return pow(message, e, n)
+        return pow(message, key["exponent"], key["n"])
 
     def decrypt(self, cipher, key):
-        n, d = key[0], key[1]
-        return pow(cipher, d, n)
+        return pow(cipher, key["exponent"], key["n"])
 
     def _find_primes(self):
         small_primes = sieve_of_eratosthenes(5000)

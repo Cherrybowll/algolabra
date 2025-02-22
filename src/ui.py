@@ -1,9 +1,10 @@
 import shlex
 
 class UI:
-    def __init__(self, rsa_handler, file_handler):
+    def __init__(self, rsa_handler, file_handler, message_handler):
         self._rsa = rsa_handler
         self._files = file_handler
+        self._messages = message_handler
 
     def start(self):
         while True:
@@ -56,8 +57,11 @@ class UI:
         if not self._files.check_key_exist(key_name):
             pass
 
+        messageint = self._messages.string_to_int(message)
+
         key_parts = self._files.get_key(key_name)
-        cipher = self._rsa.encrypt(int(message), key_parts)
+        key = {"n": key_parts[0], "exponent": key_parts[1]}
+        cipher = self._rsa.encrypt(messageint, key)
         print(cipher)
 
     def _decrypt(self, params):
@@ -70,7 +74,9 @@ class UI:
             pass
 
         key_parts = self._files.get_key(key_name)
-        message = self._rsa.decrypt(int(cipher), key_parts)
+        key = {"n": key_parts[0], "exponent": key_parts[1]}
+        messageint = self._rsa.decrypt(int(cipher), key)
+        message = self._messages.int_to_string(messageint)
         print(message)
 
     def _help(self, params):

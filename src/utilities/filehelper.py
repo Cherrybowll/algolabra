@@ -6,21 +6,19 @@ class FileHelper:
         self._create_directories()
 
     def create_key(self, name: str, key, overwrite: bool):
-        print("avain", len(key))
         new_key_path = self._keys / name
         new_key_path.touch(exist_ok=overwrite)
         with new_key_path.open(mode="w") as new_key:
-            for part in key:
-                new_key.write(str(part) + ";")
+            new_key.write(str(key[0]) + ";")
+            new_key.write(str(key[1]))
 
     def get_key(self, name: str):
         key_path = self._keys / name
         with key_path.open("r") as got_key:
             key = got_key.read()
-            key_parts = key.split(";")[:-1]
-            key_parts = [int(part) for part in key_parts]
-            print(len(key_parts))
-            return key_parts
+            key_parts = key.split(";")
+
+            return (int(key_parts[0]), int(key_parts[1]))
 
     def create_message(self, name, message):
         pass
