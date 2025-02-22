@@ -28,9 +28,14 @@ class RSA:
     def _find_primes(self):
         small_primes = sieve_of_eratosthenes(5000)
         found_primes = []
+
         for _ in range(2):
             while True:
-                testable_number = secrets.randbits(1024)
+
+                # Guarantees that the prime is exactly 1024 bits long and
+                # that n will be exactly 2048 bits long
+                testable_number = secrets.randbits(1022) + 2**1023 + 2**1022
+
                 not_a_prime = False
 
                 for small_prime in small_primes:
@@ -43,7 +48,6 @@ class RSA:
 
                 if miller_rabin(testable_number):
                     found_primes.append(testable_number)
-                    print(testable_number.bit_length())
                     break
 
         return found_primes
