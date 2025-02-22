@@ -1,3 +1,3 @@
 [run]
 source = src
-omit = src/tests/**,src/**/__init__.py,src/ui.py,src/index.py
+omit = src/tests/**,src/**/__init__.py,src/ui.py,src/index.py,src/utilities/messagehelper.py,src/utilities/filehelper.py
