@@ -1,6 +1,6 @@
 # Implementation document
 
-This is very much a work in progress and parts are purposely left out, since I fear the contents might go through some quite major changes.
+Still a work in progress but unlikely to be subject to major changes.
 
 ## Structure
 
@@ -14,6 +14,7 @@ The program is currently structured as follows (not counting `index.py`, which o
     - `miller_rabin`
 - `UI`, which manages I/O between the user and the algorithm. Also a bit oddly handles writing/reading files
 - `FileHelper`, which provides the functionalities for reading/writing files to the UI
+- `MessageHelper`, which provides encoding and decoding of strings to integers using utf-8
 
 ## References
 
@@ -22,3 +23,7 @@ The program is currently structured as follows (not counting `index.py`, which o
 - https://en.wikipedia.org/wiki/Euclidean_algorithm
 - https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
 - https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
+- https://en.wikipedia.org/wiki/Mersenne_prime
+- Various StackOverflow answers for tips and tricks
+- [ozkanali357's](https://github.com/ozkanali357/AILabsProject) project on the same course, which I peer reviewed,
+  for showing me a slightly faster and smarter way to determine utf-8 bit length without `math` dependency
