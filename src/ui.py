@@ -47,6 +47,8 @@ class UI:
         private_key = (key_parts["n"], key_parts["d"])
         self._files.create_key(key_name, private_key, True)
         self._files.create_key(key_name + "_pub", public_key, True)
+        output = f"Public-private key pair {key_name} and {key_name}_pub were generated in data directory.\n"
+        self._pretty_output(output)
 
     def _encrypt(self, params):
         if len(params) == 0:
@@ -92,7 +94,7 @@ class UI:
             case "generate":
                 insert = ("The 'generate' command generates a public-private RSA key pair.\n\n"
                           "Usage:\n"
-                          "generate [name] [path]\n\n"
+                          "generate [name]\n\n"
                           "Parameters:\n"
                           "name: Name of the key pair to be generated. Public key will be '[name]_pub'.\n"
                           "      A pre-existing key of the same name will be overwritten.\n")
@@ -105,7 +107,7 @@ class UI:
                           "message: The message to be encrypted. Multiword messages must be encased with parentheses.\n")
             case "decrypt":
                 insert = ("The 'decrypt' command decrypts an encrypted message using the given RSA key.\n"
-                          "The key used should be the opposing version than the one used for encryption.\n\n"
+                          "The key used should be the opposing version to the one used for encryption.\n\n"
                           "Usage:\n"
                           "decrypt [key] [cipher]\n\n"
                           "Parameters:\n"
@@ -118,15 +120,13 @@ class UI:
                           "Parameters:\n"
                           "command: Name of the command, eg. 'generate'.\n")
             case "exit":
-                insert = "Exits the program."
+                insert = "Exits the program.\n"
             case " ":
                 insert = "The 'help' command requires a command name as a parameter.\n"
             case _:
                 insert = f"'{command}' is not a recognized command.\n"
 
-        print("="*50 +
-              f"\n{insert}\n" +
-              "="*50)
+        self._pretty_output(insert)
 
     def _parse_command(self, command: str):
         parsed_command = shlex.split(command)
@@ -134,6 +134,10 @@ class UI:
 
         return parsed_command
 
+    def _pretty_output(self, output: str):
+        print("="*50 +
+              f"\n{output}\n" +
+              "="*50)
 
 if __name__ == "__main__":
     ui = UI(1)
