@@ -49,7 +49,7 @@ class UI:
         private_key = (key_parts["n"], key_parts["d"])
         self._files.create_key(key_name, private_key, True)
         self._files.create_key(key_name + "_pub", public_key, True)
-        output = f"Public-private key pair {key_name} and {key_name}_pub were generated in data directory.\n"
+        output = f"Public-private key pair '{key_name}' and '{key_name}_pub' were generated in 'data' directory.\n"
         self._pretty_output(output)
 
     def _encrypt(self, params):
