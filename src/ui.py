@@ -34,6 +34,8 @@ class UI:
                 case "exit":
                     print("Exiting...")
                     break
+                case _:
+                    self._pretty_output(f"Command {command} is not recognized.\n")
 
     def _generate(self, params):
         if len(params) == 0:
@@ -51,35 +53,42 @@ class UI:
         self._pretty_output(output)
 
     def _encrypt(self, params):
-        if len(params) == 0:
-            pass
+        try:
+            if len(params) == 0:
+                pass
 
-        key_name, message = params[0], params[1]
+            key_name, message = params[0], params[1]
 
-        if not self._files.check_key_exist(key_name):
-            pass
+            if not self._files.check_key_exist(key_name):
+                pass
 
-        messageint = self._messages.string_to_int(message)
+            messageint = self._messages.string_to_int(message)
 
-        key_parts = self._files.get_key(key_name)
-        key = {"n": key_parts[0], "exponent": key_parts[1]}
-        cipher = self._rsa.encrypt(messageint, key)
-        print(cipher)
+            key_parts = self._files.get_key(key_name)
+            key = {"n": key_parts[0], "exponent": key_parts[1]}
+            cipher = self._rsa.encrypt(messageint, key)
+            self._pretty_output(f"{cipher}\n")
+        except:
+            self._pretty_output("Encryption unsuccesful\n")
 
     def _decrypt(self, params):
-        if len(params) == 0:
-            pass
+        try:
+            if len(params) == 0:
+                pass
 
-        key_name, cipher = params[0], params[1]
+            key_name, cipher = params[0], params[1]
 
-        if not self._files.check_key_exist(key_name):
-            pass
+            if not self._files.check_key_exist(key_name):
+                pass
 
-        key_parts = self._files.get_key(key_name)
-        key = {"n": key_parts[0], "exponent": key_parts[1]}
-        messageint = self._rsa.decrypt(int(cipher), key)
-        message = self._messages.int_to_string(messageint)
-        print(message)
+            key_parts = self._files.get_key(key_name)
+            key = {"n": key_parts[0], "exponent": key_parts[1]}
+            messageint = self._rsa.decrypt(int(cipher), key)
+            message = self._messages.int_to_string(messageint)
+            self._pretty_output(f"{message}\n")
+        except:
+            self._pretty_output("Decryption unsuccesful\n")
+
 
     def _help(self, params):
         command = ""
@@ -130,7 +139,7 @@ class UI:
 
     def _parse_command(self, command: str):
         parsed_command = shlex.split(command)
-        print(parsed_command)
+        # print(parsed_command)
 
         return parsed_command
 
