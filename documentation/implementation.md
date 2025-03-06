@@ -26,4 +26,4 @@ The program is currently structured as follows (not counting `index.py`, which o
 - https://en.wikipedia.org/wiki/Mersenne_prime
 - Various StackOverflow answers for tips and tricks
 - [ozkanali357's](https://github.com/ozkanali357/AILabsProject) project on the same course, which I peer reviewed,
-  for showing me a slightly faster and smarter way to determine utf-8 bit length without `math` dependency
+  for showing me a slightly faster and smarter way to calculate byte length from bit length without `math` dependency
