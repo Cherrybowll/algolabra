@@ -18,9 +18,14 @@ class TestMillerRabin(unittest.TestCase):
         self.assertEqual(miller_rabin(7919), True)
 
     def test_miller_rabin_returns_true_for_large_primes(self):
-        # Source: Wikipedia, Mersenne prime
+        # Source for primes: Wikipedia, Mersenne prime
         self.assertEqual(miller_rabin(2**1279-1), True)
         self.assertEqual(miller_rabin(2**2203-1), True)
+
+    def test_miller_rabin_returns_false_for_large_odd_composites(self):
+        # Deduced from Mersenne prime list
+        self.assertEqual(miller_rabin(2**1024-1), False)
+        self.assertEqual(miller_rabin(2**1001-1), False)
 
     def test_miller_rabin_returns_false_for_one(self):
         self.assertEqual(miller_rabin(1), False)
