@@ -39,28 +39,37 @@ class UI:
 
     def _generate(self, params):
         if len(params) == 0:
-            pass
+            output = "ERROR: Missing parameters.\n"
+            self._pretty_output(output)
+            return
+
+        output = ""
 
         key_name = params[0]
 
-        self._files.check_key_exist(key_name)
+        if self._files.check_key_exist(key_name):
+            output += f"Overwriting old key with name '{key_name}'.\n"
         key_parts = self._rsa.generate_keys()
         public_key = (key_parts["n"], key_parts["e"])
         private_key = (key_parts["n"], key_parts["d"])
         self._files.create_key(key_name, private_key, True)
         self._files.create_key(key_name + "_pub", public_key, True)
-        output = f"Public-private key pair '{key_name}' and '{key_name}_pub' were generated in 'data' directory.\n"
+        output += f"Public-private key pair '{key_name}' and '{key_name}_pub' were generated in 'data' directory.\n"
         self._pretty_output(output)
 
     def _encrypt(self, params):
         try:
-            if len(params) == 0:
-                pass
+            if len(params) < 2:
+                output = "ERROR: Missing parameters.\n"
+                self._pretty_output(output)
+                return
 
             key_name, message = params[0], params[1]
 
             if not self._files.check_key_exist(key_name):
-                pass
+                output = f"ERROR: No key named '{key_name}'"
+                self._pretty_output(output)
+                return
 
             messageint = self._messages.string_to_int(message)
 
@@ -73,13 +82,17 @@ class UI:
 
     def _decrypt(self, params):
         try:
-            if len(params) == 0:
-                pass
+            if len(params) < 2:
+                output = "ERROR: Missing parameters.\n"
+                self._pretty_output(output)
+                return
 
             key_name, cipher = params[0], params[1]
 
             if not self._files.check_key_exist(key_name):
-                pass
+                output = f"ERROR: No key named '{key_name}'"
+                self._pretty_output(output)
+                return
 
             key_parts = self._files.get_key(key_name)
             key = {"n": key_parts[0], "exponent": key_parts[1]}
