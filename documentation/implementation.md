@@ -1,7 +1,5 @@
 # Implementation document
 
-Still a work in progress but unlikely to be subject to major changes.
-
 ## Structure
 
 The program is currently structured as follows (not counting `index.py`, which only creates an instance of the UI and RSA tools):
@@ -15,6 +13,7 @@ The program is currently structured as follows (not counting `index.py`, which o
 - `UI`, which manages I/O between the user and the algorithm. Also a bit oddly handles writing/reading files
 - `FileHelper`, which provides the functionalities for reading/writing files to the UI
 - `MessageHelper`, which provides encoding and decoding of strings to integers using utf-8
+- `RandomHelper`, which provides generating of random 1024 bit integers with the first to bits being 1, guaranteeing 2048 bit products
 
 ## References
 
