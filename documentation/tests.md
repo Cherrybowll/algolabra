@@ -2,13 +2,13 @@
 
 ## Coverage report
 
-Currently, the branch coverage is low-ish (68%), because integration testing is still missing (so in other words, `rsa.py` still requires testing). Miller-Rabin still needs some edge case testing for some known strong pseudoprimes.
+The branch coverage is 96% as can be seen from the image below.
 
-![image](https://github.com/user-attachments/assets/fef1f258-eac8-462d-a798-4acbb3649db7)
+![image](https://github.com/user-attachments/assets/8eecec01-c3ed-4567-b72f-a5904b459514)
 
-## What is currently tested
+## What is tested
 
-This far all the auxiliary algorithms are tested. The tests are performed with the Python unittest library.
+All the auxiliary algorithms are unit tested. The tests are performed with the Python unittest library.
 The tests use varying inputs, trying to account for edge cases and improper values.
 
 For the extended Euclidean algorithm, it has been tested that parameters (0, 0) raise an ValueError
@@ -16,7 +16,9 @@ and that parameters (105, 2688) return the correct greatest common divisor (gcd)
 Bezout coefficients (-51, 2) and quotients by the gcd (5, 128).
 
 Miller-Rabin is tested with integers of varying sizes, including small and large even and uneven composite numbers,
-small and large prime numbers (including the actual use range of +1000 bit numbers) and negative numbers. Cases of strong pseudoprimes still require testing to guarantee full functionality.
+small and large prime numbers (including the actual use range of +1000 bit numbers) and negative numbers.
+
+End-to-end testing is done through the `rsa.py` file and additionally with `messagehelper.py` for translating between strings and their integer representations.
 
 ## Running the tests
 
