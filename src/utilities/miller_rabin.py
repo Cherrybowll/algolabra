@@ -1,6 +1,4 @@
 import secrets
-import random
-
 
 def miller_rabin(n):
     """Function that performs the Miller-Rabin primality test for given integer n.

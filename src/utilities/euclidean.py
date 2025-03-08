@@ -18,7 +18,3 @@ def euclidean(a: int, b: int):
         a, b = b, a % b
 
     return abs(a)
-
-
-if __name__ == "__main__":
-    print(euclidean(330, 631602))
