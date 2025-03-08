@@ -3,15 +3,13 @@ from .miller_rabin import miller_rabin
 from .euclidean import euclidean
 from .extended_euclidean import extended_euclidean
 
-import secrets
-
 
 class RSA:
     """Class that implements the RSA algorithm, including key generation, encryption and decryption.
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, random_handler):
+        self._random_handler = random_handler
 
     def generate_keys(self):
         """Generates a public-private RSA key.
@@ -20,18 +18,24 @@ class RSA:
             dict: Parts of the key with product of primes as 'n',
             public exponent as 'e' and private exponent as 'd'.
         """
+        while True:
+            p, q = self._find_primes()
+            if not self._check_primes_sufficient_distance(p, q):
+                continue
 
-        p, q = self._find_primes()
-        n = p * q
-        n_totient = abs((p-1)*(q-1)) // euclidean(p-1, q-1)
+            n = p * q
+            n_totient = abs((p-1)*(q-1)) // euclidean(p-1, q-1)
 
-        # Public exponent
-        e = 65537
+            # Public exponent
+            e = 65537
 
-        #Private exponent
-        d = extended_euclidean(e, n_totient)["coefficients"][0]
+            if not self._check_suitable_totient(n_totient, e):
+                continue
 
-        return {"n": n, "e": e, "d": d}
+            #Private exponent
+            d = extended_euclidean(e, n_totient)["coefficients"][0]
+
+            return {"n": n, "e": e, "d": d}
 
     def encrypt(self, message, key):
         """Encrypts/signs a message with the selected key.
@@ -47,7 +51,7 @@ class RSA:
         return pow(message, key["exponent"], key["n"])
 
     def decrypt(self, cipher, key):
-        """Decrypts a message with the selected key.
+        """Decrypts a message with the selected key. Doesn't actually differ from the encrypt method.
 
         Args:
             cipher (int): The integer cipher of the original message.
@@ -74,7 +78,7 @@ class RSA:
 
                 # Guarantees that the prime is exactly 1024 bits long and
                 # that n will be exactly 2048 bits long
-                testable_number = secrets.randbits(1022) + 2**1023 + 2**1022
+                testable_number = self._random_handler.randbits_1024()
 
                 not_a_prime = False
 
@@ -106,16 +110,12 @@ class RSA:
         return euclidean(totient, e) == 1
 
     def _check_primes_sufficient_distance(self, p: int, q: int):
-        # In here as a placeholder
-        # Still contemplating whether checking the prime value difference is meaningful
-        # The possibility of the primes being too close to one another is
-        # sort of negligible.
-        pass
+        """Private method for checking sufficient prime distance to avoid trivial factoring.
+        10^10 was chosen from random sources.
 
+        Args:
+            p (int): One of the primes to test.
+            q (int): One of the primes to test.
+        """
 
-if __name__ == "__main__":
-    my_rsa = RSA()
-    my_primes = my_rsa._find_primes()
-    for prime in my_primes:
-        print(prime.bit_length())
-    print("n:", (my_primes[0]*my_primes[1]).bit_length())
+        return abs(p - q) > 10**10
